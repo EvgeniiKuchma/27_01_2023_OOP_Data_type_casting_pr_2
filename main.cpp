@@ -34,7 +34,8 @@ int main() {
 	//static_cast -> const_cast
 	//reinterpret_cast
 	//reinterpret_cast -> const_cast
-	Child* pChild2 = static_cast<Child*>(pParent);//если классы в иерархии наследовани¤ не виртуальные то можно  и нужно кастовать(upcast/downcast) через static_cast
+	Child* pChild2 = static_cast<Child*>(pParent);//если классы в иерархии наследовани¤ не виртуальные 
+	//то можно  и нужно кастовать(upcast/downcast) через static_cast
 	//downcast UB
 	//Child* pChild = (Child*)&pParent;
 
@@ -54,7 +55,8 @@ int main() {
 	//или (double)a
 	std::cout << "b: " << b << std::endl;
 
-	int c = 6; //если данные изначально const то снятие константы с указателя привело бы к UB, c this константность можно снять если она не была константной
+	int c = 6; //если данные изначально const то снятие константы с указателя привело бы к UB, 
+	//c this константность можно снять если она не была константной
 	const int* pC = &c;
 	int* ppC = const_cast<int*> (pC);
 	std::cout << "=============\n";
@@ -62,8 +64,10 @@ int main() {
 	*ppC = 4;
 	std::cout << *ppC << " " << c << std::endl;
 	//dynamic cast<new type> - для работы с виртуальными классами, при отсутствии наследования UB
-	//Здесь нет UB так как dynamic cast ведет себя определенным образом, проверяет что UB не возможно и сообщает об этом< через private и protected не ходит только через public
-	Child* pChild3 = dynamic_cast<Child*>(&parent);//UB в dynamic_cast когды мы пытаемся кастить 1 класс во 2 если эти касты не наследуют другу и быть виртуальными
+	//Здесь нет UB так как dynamic cast ведет себя определенным образом, проверяет что UB не возможно и сообщает 
+	//об этом< через private и protected не ходит только через public
+	Child* pChild3 = dynamic_cast<Child*>(&parent);//UB в dynamic_cast когды мы пытаемся кастить 1 класс во 2 если 
+	//эти касты не наследуют другу и быть виртуальными
 	if (pChild3 == nullptr) {
 		std::cout << "pChild is nullptr" << std::endl;
 	}
@@ -74,6 +78,7 @@ int main() {
 		std::cout << "cast parent to child result in bad_cast" << std::endl;
 		std::cout << e.what() << std::endl;
 	}
-	//reinterpret_cast = пытается скастить чего бы это не стоило, лучше избегать, 100 % можно скастить 1 тип в другой и потом обратно, используют в чтении в байтовом режиме (наприме в чар)
+	//reinterpret_cast = пытается скастить чего бы это не стоило, лучше избегать, 100 % можно скастить 1 
+	//тип в другой и потом обратно, используют в чтении в байтовом режиме (наприме в чар)
 	return 0;
 }
